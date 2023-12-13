@@ -58,6 +58,6 @@ final class NewTaskInteractor: INewTaskInteractor {
 
 	func saveTask(task: Task) {
 		taskManager.addTask(task: task)
-		router.showTodoList(taskManager: taskManager)
+		router.returnToTodoList()
 	}
 }

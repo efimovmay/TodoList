@@ -18,7 +18,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		let navigationController = UINavigationController()
 		let assemblyBuilder = AssemblyBuilder()
-		let router = Router(navigationController: navigationController, assemblyBuilder: assemblyBuilder)
+		let taskManager = TaskManager()
+		let router = Router(
+			navigationController: navigationController,
+			assemblyBuilder: assemblyBuilder,
+			taskManager: taskManager
+		)
 		router.showLogin()
 
 		window.rootViewController = navigationController

@@ -68,6 +68,6 @@ final class TodoListInteractor: ITodoListInteractor {
 	}
 
 	func createTask() {
-		router.showNewTask(taskManager: taskManager)
+		router.showNewTask()
 	}
 }

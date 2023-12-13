@@ -41,7 +41,7 @@ final class LoginInteractor: ILoginInteractor {
 	}
 
 	func didLogin(request: LoginModel.Request) {
-		if request.login == "Admin" && request.password == "Pa$$32!" {
+		if request.login == "1" && request.password == "" {
 			router.showTodoList()
 		} else {
 			presenter.showAlert()

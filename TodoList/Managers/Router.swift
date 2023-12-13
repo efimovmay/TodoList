@@ -16,8 +16,8 @@ protocol IRouterMain {
 protocol IRouterProtocol: IRouterMain {
 	func showLogin()
 	func showTodoList()
-	func showTodoList(taskManager: ITaskManager)
-	func showNewTask(taskManager: ITaskManager)
+	func showNewTask()
+	func returnToTodoList()
 }
 
 class Router: IRouterProtocol {
@@ -25,11 +25,13 @@ class Router: IRouterProtocol {
 	// MARK: - Dependencies
 	var navigationController: UINavigationController?
 	var assemblyBuilder: IAssemblyBuilder?
+	let taskManager: ITaskManager
 
 	// MARK: - Initialization
-	init(navigationController: UINavigationController, assemblyBuilder: IAssemblyBuilder) {
+	init(navigationController: UINavigationController, assemblyBuilder: IAssemblyBuilder, taskManager: ITaskManager) {
 		self.navigationController = navigationController
 		self.assemblyBuilder = assemblyBuilder
+		self.taskManager = taskManager
 	}
 
 	// MARK: - Public methods
@@ -47,17 +49,7 @@ class Router: IRouterProtocol {
 		}
 	}
 
-	func showTodoList(taskManager: ITaskManager) {
-		if let navigationController = navigationController {
-			guard let todoListController = assemblyBuilder?.assemblyTodoList(
-				router: self,
-				taskManager: taskManager
-			) else { return }
-			navigationController.pushViewController(todoListController, animated: true)
-		}
-	}
-
-	func showNewTask(taskManager: ITaskManager) {
+	func showNewTask() {
 		if let navigationController = navigationController {
 			guard let newTaskController = assemblyBuilder?.assemblyNewTask(
 				router: self,
@@ -65,5 +57,9 @@ class Router: IRouterProtocol {
 			) else { return }
 			navigationController.pushViewController(newTaskController, animated: true)
 		}
+	}
+
+	func returnToTodoList() {
+		navigationController?.popViewController(animated: true)
 	}
 }
