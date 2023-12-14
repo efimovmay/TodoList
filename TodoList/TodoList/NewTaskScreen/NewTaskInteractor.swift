@@ -25,18 +25,15 @@ protocol INewTaskInteractor {
 
 final class NewTaskInteractor: INewTaskInteractor {
 
-	// MARK: - Private properties
-	private var presenter: INewTaskPresenters! // swiftlint:disable:this implicitly_unwrapped_optional
-
 	// MARK: - Dependencies
-	private var router: IRouterProtocol
+
+	private var presenter: INewTaskPresenters
 	private var taskManager: ITaskManager
 
 	// MARK: - Initialization
 
-	internal init(presenter: INewTaskPresenters, router: IRouterProtocol, taskManager: ITaskManager) {
+	internal init(presenter: INewTaskPresenters, taskManager: ITaskManager) {
 		self.presenter = presenter
-		self.router = router
 		self.taskManager = taskManager
 	}
 
@@ -58,6 +55,6 @@ final class NewTaskInteractor: INewTaskInteractor {
 
 	func saveTask(task: Task) {
 		taskManager.addTask(task: task)
-		router.returnToTodoList()
+		presenter.taskCreated()
 	}
 }

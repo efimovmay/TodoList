@@ -20,6 +20,7 @@ final class AssemblyBuilder: IAssemblyBuilder {
 		let presenter = LoginPresenters(view: viewController)
 		let interactor = LoginInteractor(presenter: presenter, router: router)
 		viewController.interactor = interactor
+
 		return viewController
 	}
 
@@ -36,9 +37,11 @@ final class AssemblyBuilder: IAssemblyBuilder {
 
 	func assemblyNewTask(router: IRouterProtocol, taskManager: ITaskManager) -> UIViewController {
 		let viewController = NewTaskViewController()
-		let presenter = NewTaskPresenters(view: viewController)
-		let interactor = NewTaskInteractor(presenter: presenter, router: router, taskManager: taskManager)
+		let presenter = NewTaskPresenters(viewController: viewController)
+		let interactor = NewTaskInteractor(presenter: presenter, taskManager: taskManager)
 		viewController.interactor = interactor
+		viewController.router = router
+
 		return viewController
 	}
 }

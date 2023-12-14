@@ -9,6 +9,9 @@ import UIKit
 
 protocol INewTaskViewController: AnyObject {
 
+	/// Уведомление, что задание создано.
+	func taskCreated()
+
 	/// Метод отрисовки информации на экране.
 	/// - Parameter viewData: данные для отрисовки на экране.
 	func render(viewData: NewTaskModel.ViewModel)
@@ -17,7 +20,7 @@ protocol INewTaskViewController: AnyObject {
 final class NewTaskViewController: UIViewController {
 
 	// MARK: - Dependencies
-
+	var router: IRouterProtocol?
 	var interactor: INewTaskInteractor?
 
 	// MARK: - Private properties
@@ -219,5 +222,9 @@ extension NewTaskViewController: INewTaskViewController {
 	func render(viewData: NewTaskModel.ViewModel) {
 		self.viewModel = viewData
 		sliderpriority.maximumValue = Float(viewData.priority.count) - 1
+	}
+
+	func taskCreated() {
+		router?.returnToTodoList()
 	}
 }
