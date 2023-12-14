@@ -10,7 +10,7 @@ public protocol ITaskManager {
 	/// Список всех заданий.
 	/// - Returns: Массив заданий.
 	func allTasks() -> [Task]
-	
+
 	/// Список выполненных заданий.
 	/// - Returns: Массив заданий.
 	func completedTasks() -> [Task]

@@ -27,20 +27,17 @@ final class TodoListInteractor: ITodoListInteractor {
 	private var sectionManager: ISectionForTaskManagerAdapter
 	private var presenter: ITodoListPresenter
 	private var router: IRouterProtocol
-	private var taskManager: ITaskManager
 
 	// MARK: - Initialization
 
 	internal init(
 		sectionManager: ISectionForTaskManagerAdapter,
 		presenter: ITodoListPresenter,
-		router: IRouterProtocol,
-		taskManager: ITaskManager
+		router: IRouterProtocol
 	) {
 		self.sectionManager = sectionManager
 		self.presenter = presenter
 		self.router = router
-		self.taskManager = taskManager
 	}
 
 	// MARK: - Public methods

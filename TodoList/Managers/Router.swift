@@ -25,7 +25,7 @@ class Router: IRouterProtocol {
 	// MARK: - Dependencies
 	var navigationController: UINavigationController?
 	var assemblyBuilder: IAssemblyBuilder?
-	let taskManager: ITaskManager
+	var taskManager: ITaskManager
 
 	// MARK: - Initialization
 	init(navigationController: UINavigationController, assemblyBuilder: IAssemblyBuilder, taskManager: ITaskManager) {
@@ -44,7 +44,10 @@ class Router: IRouterProtocol {
 
 	func showTodoList() {
 		if let navigationController = navigationController {
-			guard let todoListController = assemblyBuilder?.assemblyTodoList(router: self) else { return }
+			guard let todoListController = assemblyBuilder?.assemblyTodoList(
+				router: self,
+				taskManager: taskManager
+			) else { return }
 			navigationController.pushViewController(todoListController, animated: true)
 		}
 	}

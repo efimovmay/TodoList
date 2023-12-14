@@ -12,7 +12,6 @@ public final class OrderedTaskManager: ITaskManager {
 
 	private let taskManager: ITaskManager
 
-
 	/// Создание отсортированного по приоритету заданий списка.
 	/// - Parameter taskManager: Менеджер списка заданий, который будет предоставлять задания.
 	public init(taskManager: ITaskManager) {
@@ -61,7 +60,7 @@ public final class OrderedTaskManager: ITaskManager {
 
 	/// Удаление задания из списка. При вызове метода будут удалены все варианты этого задания по идентичности Task.
 	///
-	///Сложность: O(n), где n -- размер списка задач.
+	/// Сложность: O(n), где n -- размер списка задач.
 	/// - Parameter task: Задание, которое необходимо удалить.
 	public func removeTask(task: Task) {
 		taskManager.removeTask(task: task)
@@ -82,4 +81,3 @@ private extension OrderedTaskManager {
 		}
 	}
 }
-

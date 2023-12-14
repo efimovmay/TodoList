@@ -19,6 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		let navigationController = UINavigationController()
 		let assemblyBuilder = AssemblyBuilder()
 		let taskManager = TaskManager()
+		taskManager.addTasks(tasks: TaskRepositoryStub().getTasks())
 		let router = Router(
 			navigationController: navigationController,
 			assemblyBuilder: assemblyBuilder,

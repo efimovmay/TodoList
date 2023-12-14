@@ -10,7 +10,6 @@ import TaskManagerPackage
 
 protocol IAssemblyBuilder {
 	func assemblyLogin(router: IRouterProtocol) -> UIViewController
-	func assemblyTodoList(router: IRouterProtocol) -> UIViewController
 	func assemblyTodoList(router: IRouterProtocol, taskManager: ITaskManager) -> UIViewController
 	func assemblyNewTask(router: IRouterProtocol, taskManager: ITaskManager) -> UIViewController
 }
@@ -24,23 +23,6 @@ class AssemblyBuilder: IAssemblyBuilder {
 		return viewController
 	}
 
-	func assemblyTodoList(router: IRouterProtocol) -> UIViewController {
-		let viewController = TodoListViewController()
-		let taskManager: ITaskManager = OrderedTaskManager(taskManager: TaskManager())
-		let repository: ITaskRepository = TaskRepositoryStub()
-		taskManager.addTasks(tasks: repository.getTasks())
-		let sectionForTaskManagerAdapter = SectionForTaskManagerAdapter(taskManager: taskManager)
-		let presenter = TodoListPresenter(viewController: viewController)
-		let interactor = TodoListInteractor(
-			sectionManager: sectionForTaskManagerAdapter,
-			presenter: presenter,
-			router: router,
-			taskManager: taskManager
-		)
-		viewController.interctor = interactor
-		return viewController
-	}
-
 	func assemblyTodoList(router: IRouterProtocol, taskManager: ITaskManager) -> UIViewController {
 		let viewController = TodoListViewController()
 		let sectionForTaskManagerAdapter = SectionForTaskManagerAdapter(taskManager: taskManager)
@@ -48,8 +30,7 @@ class AssemblyBuilder: IAssemblyBuilder {
 		let interactor = TodoListInteractor(
 			sectionManager: sectionForTaskManagerAdapter,
 			presenter: presenter,
-			router: router,
-			taskManager: taskManager
+			router: router
 		)
 		viewController.interctor = interactor
 		return viewController

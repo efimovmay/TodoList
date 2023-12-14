@@ -9,7 +9,6 @@
 public final class TaskManager {
 	private var taskList = [Task]()
 
-
 	/// Создание списка заданий.
 	/// - Parameter taskList: Набор заданий, которые надо поместить в список.
 	public init(taskList: [Task] = [Task]()) {
@@ -52,7 +51,7 @@ public final class TaskManager {
 
 	/// Удаление задания из списка. При вызове метода будут удалены все варианты этого задания по идентичности Task.
 	///
-	///Сложность: O(n), где n -- размер списка задач.
+	/// Сложность: O(n), где n -- размер списка задач.
 	/// - Parameter task: Задание, которое необходимо удалить.
 	public func removeTask(task: Task) {
 		taskList.removeAll { $0 === task }
