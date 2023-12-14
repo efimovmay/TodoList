@@ -8,24 +8,27 @@
 import UIKit
 import TaskManagerPackage
 
-protocol IRouterMain {
-	var navigationController: UINavigationController? { get set }
-	var assemblyBuilder: IAssemblyBuilder? { get set }
-}
+protocol IRouterProtocol: AnyObject {
 
-protocol IRouterProtocol: IRouterMain {
+	/// Переход к экрану логина.
 	func showLogin()
+
+	/// Переход к списку задач.
 	func showTodoList()
+
+	/// Переход к созданию нового задания.
 	func showNewTask()
+
+	/// Возврат на список заданий.
 	func returnToTodoList()
 }
 
-class Router: IRouterProtocol {
+final class Router: IRouterProtocol {
 
 	// MARK: - Dependencies
-	var navigationController: UINavigationController?
-	var assemblyBuilder: IAssemblyBuilder?
-	var taskManager: ITaskManager
+	private let navigationController: UINavigationController
+	private let assemblyBuilder: IAssemblyBuilder
+	private let taskManager: ITaskManager
 
 	// MARK: - Initialization
 	init(navigationController: UINavigationController, assemblyBuilder: IAssemblyBuilder, taskManager: ITaskManager) {
@@ -36,33 +39,21 @@ class Router: IRouterProtocol {
 
 	// MARK: - Public methods
 	func showLogin() {
-		if let navigationController = navigationController {
-			guard let loginViewController = assemblyBuilder?.assemblyLogin(router: self) else { return }
-			navigationController.viewControllers = [loginViewController]
-		}
+		let loginViewController = assemblyBuilder.assemblyLogin(router: self)
+		navigationController.viewControllers = [loginViewController]
 	}
 
 	func showTodoList() {
-		if let navigationController = navigationController {
-			guard let todoListController = assemblyBuilder?.assemblyTodoList(
-				router: self,
-				taskManager: taskManager
-			) else { return }
-			navigationController.pushViewController(todoListController, animated: true)
-		}
+		let todoListController = assemblyBuilder.assemblyTodoList(taskManager: taskManager, router: self)
+		navigationController.pushViewController(todoListController, animated: true)
 	}
 
 	func showNewTask() {
-		if let navigationController = navigationController {
-			guard let newTaskController = assemblyBuilder?.assemblyNewTask(
-				router: self,
-				taskManager: taskManager
-			) else { return }
-			navigationController.pushViewController(newTaskController, animated: true)
-		}
+		let newTaskController = assemblyBuilder.assemblyNewTask(router: self, taskManager: taskManager)
+		navigationController.pushViewController(newTaskController, animated: true)
 	}
 
 	func returnToTodoList() {
-		navigationController?.popViewController(animated: true)
+		navigationController.popViewController(animated: true)
 	}
 }

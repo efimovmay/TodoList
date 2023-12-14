@@ -14,7 +14,13 @@ import Foundation
 import TaskManagerPackage
 
 protocol ITodoListPresenter {
+
+	/// Отображение экрана со списком заданий.
+	/// - Parameter response: Подготовленные к отображению данные.
 	func present(response: TodoListModel.Response)
+
+	/// Создание нового задания.
+	func createTask()
 }
 
 final class TodoListPresenter: ITodoListPresenter {
@@ -41,6 +47,10 @@ final class TodoListPresenter: ITodoListPresenter {
 			sections.append(sectionData)
 		}
 		viewController.render(viewModel: TodoListModel.ViewModel(tasksBySections: sections))
+	}
+
+	func createTask() {
+		viewController.createTask()
 	}
 
 	// MARK: - Private methods

@@ -10,12 +10,16 @@ protocol ITodoListViewController: AnyObject {
 	/// Метод отрисовки информации на экране.
 	/// - Parameter viewData: данные для отрисовки на экране.
 	func render(viewModel: TodoListModel.ViewModel)
+
+	/// Метод для вызова нового экрана -- Создание задания.
+	func createTask()
 }
 
 /// Главный экран приложения.
 final class TodoListViewController: UITableViewController {
 
 	// MARK: - Dependencies
+	var router: IRouterProtocol?
 	var interctor: ITodoListInteractor?
 
 	// MARK: - Private properties
@@ -46,7 +50,7 @@ final class TodoListViewController: UITableViewController {
 
 private extension TodoListViewController {
 	@objc
-	func createTask() {
+	func addTapped() {
 		interctor?.createTask()
 	}
 }
@@ -92,7 +96,7 @@ private extension TodoListViewController {
 		let buttonNewTask = UIBarButtonItem(
 			barButtonSystemItem: .add,
 			target: self,
-			action: #selector(createTask)
+			action: #selector(addTapped)
 		)
 		navigationItem.rightBarButtonItem = buttonNewTask
 	}
@@ -130,6 +134,10 @@ private extension TodoListViewController {
 // MARK: - IMainViewController
 
 extension TodoListViewController: ITodoListViewController {
+	func createTask() {
+		router?.showNewTask()
+	}
+
 	func render(viewModel: TodoListModel.ViewModel) {
 		self.viewModel = viewModel
 		tableView.reloadData()

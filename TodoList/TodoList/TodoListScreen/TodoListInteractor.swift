@@ -26,18 +26,12 @@ final class TodoListInteractor: ITodoListInteractor {
 
 	private var sectionManager: ISectionForTaskManagerAdapter
 	private var presenter: ITodoListPresenter
-	private var router: IRouterProtocol
 
 	// MARK: - Initialization
 
-	internal init(
-		sectionManager: ISectionForTaskManagerAdapter,
-		presenter: ITodoListPresenter,
-		router: IRouterProtocol
-	) {
+	internal init(sectionManager: ISectionForTaskManagerAdapter, presenter: ITodoListPresenter) {
 		self.sectionManager = sectionManager
 		self.presenter = presenter
-		self.router = router
 	}
 
 	// MARK: - Public methods
@@ -65,6 +59,6 @@ final class TodoListInteractor: ITodoListInteractor {
 	}
 
 	func createTask() {
-		router.showNewTask()
+		presenter.createTask()
 	}
 }
